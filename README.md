@@ -9,12 +9,13 @@ An intelligent, offline-first personal financial manager and expense tracking ap
 
 ---
 
-## 🚀 Quick Download
+## 🚀 Download APK (తాజా యాప్ డౌన్‌లోడ్)
 
-You can download the ready-to-install Android Debug APK directly from this repository:
+You can download and install the Android APK directly:
 
-* 📥 **[Download app-debug.apk (Direct Package)](./app-debug.apk)**
-* 📁 **[Alternate APK Location (apk/app-debug.apk)](./apk/app-debug.apk)**
+* 📥 **[Download app-debug.apk (Direct Repository File)](https://github.com/sarapusaikumar143-bot/Smart-Notes/raw/main/app-debug.apk)**
+* 📦 **[GitHub Releases / Actions Builds](https://github.com/sarapusaikumar143-bot/Smart-Notes/releases)**
+* 📱 **Inside the App:** Open the app and navigate to **"Explore Files"** to find `app-debug.apk` ready to install or share via WhatsApp/Bluetooth!
 
 ### 📲 How to Install on Android Device:
 1. Tap the **[Download app-debug.apk](./app-debug.apk)** link above and download the file.
