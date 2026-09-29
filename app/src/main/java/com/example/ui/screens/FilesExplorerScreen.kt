@@ -200,6 +200,11 @@ fun FilesExplorerScreen(
                     val file = AppFileManager.generateApkManifestFile(context)
                     Toast.makeText(context, "Generated: ${file.name}", Toast.LENGTH_SHORT).show()
                     refreshFiles()
+                },
+                onAddApkToFolder = {
+                    val file = AppFileManager.ensureApkFile(context)
+                    Toast.makeText(context, "Added ${file.name} to Explore files!", Toast.LENGTH_SHORT).show()
+                    refreshFiles()
                 }
             )
         }
@@ -511,6 +516,20 @@ fun FilesExplorerScreen(
                         Text("Copy")
                     }
 
+                    if (previewFileItem!!.extension == "apk") {
+                        Button(
+                            onClick = {
+                                AppFileManager.installApk(context, previewFileItem!!.file)
+                            },
+                            shape = RoundedCornerShape(12.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = MoneyGreen)
+                        ) {
+                            Icon(imageVector = Icons.Default.Android, contentDescription = null, tint = DarkNavy, modifier = Modifier.size(16.dp))
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text("Install", color = DarkNavy, fontWeight = FontWeight.Bold)
+                        }
+                    }
+
                     Button(
                         onClick = {
                             AppFileManager.shareFile(context, previewFileItem!!.file)
@@ -579,7 +598,8 @@ fun FilesExplorerScreen(
 fun ApkDubbFileCard(
     onOpenGuide: () -> Unit,
     onShareApkInfo: () -> Unit,
-    onGenerateManifest: () -> Unit
+    onGenerateManifest: () -> Unit,
+    onAddApkToFolder: () -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(20.dp),
@@ -656,6 +676,23 @@ fun ApkDubbFileCard(
             Spacer(modifier = Modifier.height(14.dp))
             Divider(color = Color.White.copy(alpha = 0.15f))
             Spacer(modifier = Modifier.height(12.dp))
+
+            // Primary Add app-debug.apk to Folder Button
+            Button(
+                onClick = onAddApkToFolder,
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = MoneyGreen),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("add_apk_to_folder_btn"),
+                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
+            ) {
+                Icon(imageVector = Icons.Default.Android, contentDescription = null, tint = DarkNavy, modifier = Modifier.size(18.dp))
+                Spacer(modifier = Modifier.width(6.dp))
+                Text("Add app-debug.apk to Explore Files", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = DarkNavy)
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Action Buttons
             Row(
@@ -841,6 +878,20 @@ fun FileListItemCard(
             }
 
             Row(verticalAlignment = Alignment.CenterVertically) {
+                if (fileItem.extension == "apk") {
+                    IconButton(
+                        onClick = { AppFileManager.installApk(context, fileItem.file) },
+                        modifier = Modifier.size(32.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Android,
+                            contentDescription = "Install APK",
+                            tint = MoneyGreen,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
+
                 IconButton(onClick = onPreview, modifier = Modifier.size(32.dp)) {
                     Icon(
                         imageVector = Icons.Default.Visibility,

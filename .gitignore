@@ -20,3 +20,9 @@ node_modules/
 dist/
 build/
 .cache/
+
+# Allow APK and exports to be tracked and pushed to GitHub
+!app-debug.apk
+!/apk/
+!/apk/**
+!*.apk
